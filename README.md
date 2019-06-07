@@ -5,7 +5,12 @@
 
 ## Features
 
-目前只有簡單的問答功能，將再補上對話情境。
+根據[Microsoft/BotBuilder-PersonalityChat](https://github.com/Microsoft/BotBuilder-PersonalityChat/tree/master/CSharp/Datasets)提供的Dataset建立線上NLP模型  
+
+可以進行簡單的QA，以及少量的中文應答。  
+
+對話情境Demo  
+![alt tag](https://i.imgur.com/TRSKywo.png)
 
 ## Powered by
 - [QnAMaker](https://www.qnamaker.ai)
