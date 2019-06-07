@@ -10,6 +10,7 @@ import os
 # 這邊是Linebot的授權TOKEN(等等註冊LineDeveloper帳號會取得)，我們為DEMO方便暫時存在settings裡面存取，實際上使用的時候記得設成環境變數，不要公開在程式碼裡喔！
 line_bot_api = LineBotApi(os.getenv('ChannelAccessToken'))
 parser = WebhookParser(os.getenv('ChannelSecret'))
+print(os.getenv('ChannelSecret'))
 
 @csrf_exempt
 def callback(request):
