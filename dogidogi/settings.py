@@ -100,7 +100,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-
-LINE_CHANNEL_ACCESS_TOKEN = "JJGn0ViYjSvo8sLzFvFWD8RELcowqatedNIn/SKKiDolO4Cq/ZHf55x4yEhZZHq9GpeuGGHWyE28M1VaXf/kx2n2E8sHZ7taX16tIPFSpEWkOQRgGn8mlu6YgL8IHmvyBOkfhhgIbyy9kfPPr3615AdB04t89/1O/w1cDnyilFU="
-
-LINE_CHANNEL_SECRET = "1e47e413bc4fe3bc5a1075218706b638"
