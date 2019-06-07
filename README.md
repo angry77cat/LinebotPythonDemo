@@ -1,7 +1,7 @@
 # LineBotDemo - using Python
 
 本文使用line-bot-sdk開發Chatbot，示範帳號QR code如下  
-![alt tag](https://qr-official.line.me/sid/M/170ciimk.png)
+![alt tag](https://i.imgur.com/mujCJH7.png)
 
 ## Features
 
