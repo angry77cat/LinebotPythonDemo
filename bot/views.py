@@ -30,7 +30,8 @@ def get_answer(message_text):
         if "error" in data:
             return data["error"]["message"]
         answer = data['answers'][0]['answer']
-        if answer == 'No good match found in KB':
+        print(answer)
+        if answer == 'No good match found in KB.':
             answer = 'Sorry, I can\'t make a proper response.'
         return answer
 
