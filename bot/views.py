@@ -7,10 +7,39 @@ from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextSendMessage
 import os
-# 這邊是Linebot的授權TOKEN(等等註冊LineDeveloper帳號會取得)，我們為DEMO方便暫時存在settings裡面存取，實際上使用的時候記得設成環境變數，不要公開在程式碼裡喔！
+
 line_bot_api = LineBotApi(os.getenv('ChannelAccessToken'))
 parser = WebhookParser(os.getenv('ChannelSecret'))
-print(os.getenv('ChannelSecret'))
+# print(os.getenv('ChannelSecret'))
+
+def get_answer(message_text):
+    
+    url = "https://dogidogi.azurewebsites.net/qnamaker/knowledgebases/a2c5c87b-7005-413b-aa58-0af23bcf8f8e/generateAnswer"
+
+    # 發送request到QnAMaker Endpoint要答案
+    response = requests.post(
+                   url,
+                   json.dumps({'question': message_text}),
+                   headers={
+                       'Content-Type': 'application/json',
+                       'Authorization': 'EndpointKey f50c132b-2076-4576-b073-8e2c567d3f54'
+                   }
+               )
+
+    data = response.json()
+
+    try: 
+        #我們使用免費service可能會超過限制（一秒可以發的request數）
+        if "error" in data:
+            return data["error"]["message"]
+        #這裡我們預設取第一個答案
+        answer = data['answers'][0]['answer']
+
+        return answer
+
+    except Exception:
+
+        return "Error occurs when finding answer"
 
 @csrf_exempt
 def callback(request):
@@ -28,9 +57,10 @@ def callback(request):
 
         for event in events:
             if isinstance(event, MessageEvent):
+                answer = get_answer(event.message.text)
                 line_bot_api.reply_message(
                     event.reply_token,
-                   TextSendMessage(text=event.message.text)
+                    TextSendMessage(text=answer)
                 )
         return HttpResponse()
     else:
