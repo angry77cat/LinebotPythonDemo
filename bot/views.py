@@ -1,4 +1,3 @@
-# import 必要的函式庫
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
@@ -12,29 +11,24 @@ import json
 
 line_bot_api = LineBotApi(os.getenv('ChannelAccessToken'))
 parser = WebhookParser(os.getenv('ChannelSecret'))
-# print(os.getenv('ChannelSecret'))
 
 def get_answer(message_text):
     
-    url = "https://dogidogi.azurewebsites.net/qnamaker/knowledgebases/a2c5c87b-7005-413b-aa58-0af23bcf8f8e/generateAnswer"
-
-    # 發送request到QnAMaker Endpoint要答案
+    url = os.getenv('QnAMakerUrl')
     response = requests.post(
                    url,
                    json.dumps({'question': message_text}),
                    headers={
                        'Content-Type': 'application/json',
-                       'Authorization': 'EndpointKey f50c132b-2076-4576-b073-8e2c567d3f54'
+                       'Authorization': os.getenv('QnAMakerAuth')
                    }
                )
 
     data = response.json()
 
     try: 
-        #我們使用免費service可能會超過限制（一秒可以發的request數）
         if "error" in data:
             return data["error"]["message"]
-        #這裡我們預設取第一個答案
         answer = data['answers'][0]['answer']
 
         return answer
